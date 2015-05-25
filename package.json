@@ -1,0 +1,25 @@
+{
+  "name": "promisify-event-emitter",
+  "version": "0.0.1",
+  "description": "Easily promisify an event emitter",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/**"
+  },
+  "repository": {
+    "type": "git",
+    "url": "coming soon"
+  },
+  "keywords": [
+    "bluebird",
+    "event",
+    "emitter",
+    "promise",
+    "promisify"
+  ],
+  "author": "Teotimo Garcia",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^2.9.25"
+  }
+}
