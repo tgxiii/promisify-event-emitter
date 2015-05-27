@@ -64,6 +64,8 @@ var promisifyEventEmitter = function(params) {
         if (!listenerOptions.name) {
           throw new Error('listener must have a name');
         }
+        /** @namespace listenerOptions.on */
+        /** @namespace listenerOptions.once */
         if (listenerOptions.on) {
           addListener(listenerOptions, 'on');
         } else if (listenerOptions.once) {
