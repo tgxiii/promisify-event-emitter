@@ -21,5 +21,8 @@
   "license": "MIT",
   "dependencies": {
     "bluebird": "^2.9.25"
+  },
+  "devDependencies": {
+    "chai": "^2.3.0"
   }
 }
