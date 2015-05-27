@@ -24,6 +24,25 @@ var promisifyEventEmitter = function(params) {
   if (!params.eventEmitter) {
     throw new Error('params.eventEmitter is required');
   }
+  if (params.listeners && !Array.isArray(params.listeners)) {
+    throw new Error('params.listeners must be an array of listener options objects');
+  }
+  if (params.listeners) {
+    params.listeners.forEach(function(listenerOption) {
+      if (!listenerOption.name) {
+        throw new Error('listener option must have a name');
+      }
+      if (!listenerOption.on && !listenerOption.once) {
+        throw new Error('listener option must have a "once" or "on" function');
+      }
+      if (listenerOption.on && typeof listenerOption.on !== 'function') {
+        throw new Error('"on" must be a function');
+      }
+      if (listenerOption.once && typeof listenerOption.once !== 'function') {
+        throw new Error('"once" must be a function');
+      }
+    });
+  }
   return function() {
     var args = arguments;
     var applyThis = params.applyThis || params.eventEmitter;
@@ -53,17 +72,12 @@ var promisifyEventEmitter = function(params) {
       });
     };
     params.listeners.forEach(function(listenerOptions) {
-      if (!listenerOptions.name) {
-        throw new Error('listener must have a name');
-      }
       /** @namespace listenerOptions.on */
       /** @namespace listenerOptions.once */
       if (listenerOptions.on) {
         addListener(listenerOptions, 'on');
       } else if (listenerOptions.once) {
         addListener(listenerOptions, 'once');
-      } else {
-        throw new Error('listener must either have an "on" or "once" function');
       }
     });
     if (!hasDataListener) {
